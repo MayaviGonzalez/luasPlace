@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - El Grano Dorado</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="admin.html">Admin</a>
+    </nav>
+
+    <main>
+        <div class="container">
+            <h2>Gestión de Usuarios</h2>
+            <p>Crea nuevos usuarios (clientes, empleados, gerentes, administradores, proveedores etc)</p>
+
+            <form>
+                <h3>Crear Nuevo Usuario</h3>
+                
+                <div class="form-group">
+                    <label for="username">Nombre de Usuario (Email):</label>
+                    <input type="email" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña Temporal:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="permisos">Asignar Permisos (Rol):</label>
+                    <select id="permisos" name="role">
+                        <option value="barista">aqui</option>
+                        <option value="gerente">van</option>
+                        <option value="admin">los roles</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">Crear Usuario</button>
+            </form>
+
+            <hr>
+
+            <h3>Usuarios Actuales</h3>
+            <p>Aqui se van a mostra los usuarios ya creados o actuales mayaton.</p>
+        </div>
+    </main>
+
+</body>
+</html>
