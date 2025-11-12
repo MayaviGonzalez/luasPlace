@@ -63,19 +63,15 @@
         </form>
 
         <script>
-          // --- CÓDIGO NUEVO PARA GUARDAR (CORREGIDO) ---
-
           const formulario = document.getElementById("mi-formulario");
 
           formulario.addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            // 3. Obtenemos los TRES valores
             const nombre = document.getElementById("nombre").value;
-            const telefono = document.getElementById("telefono").value; // Valor nuevo
-            const correo = document.getElementById("correo").value; // ID cambiado a "correo"
+            const telefono = document.getElementById("telefono").value;
+            const correo = document.getElementById("correo").value;
 
-            // 4. Creamos el objeto de datos
             const datosParaGuardar = {
               nombre: nombre,
               telefono: telefono,
@@ -84,7 +80,6 @@
 
             console.log("Enviando:", datosParaGuardar);
 
-            // 5. Usamos FETCH para enviar los datos al backend
             try {
               const response = await fetch(
                 "http://localhost:3000/api/guardar",
@@ -114,28 +109,20 @@
 
         <hr />
         <script>
-          // Se ejecuta cuando la página termina de cargar
           document.addEventListener("DOMContentLoaded", () => {
-            // Hacemos la "llamada" (fetch) a tu backend
             fetch("http://localhost:3000/api/datos")
-              .then((response) => response.json()) // Convertimos la respuesta a JSON
+              .then((response) => response.json())
               .then((datos) => {
-                // ¡Aquí tienes tus datos!
                 console.log(datos);
 
-                // ---- Ejemplo: Mostrar los datos en la página ----
                 const container = document.getElementById("datos-container");
                 if (container) {
-                  // Suponiendo que 'datos' es un array de objetos
-                  // y cada objeto tiene una propiedad 'nombre'
                   datos.forEach((item) => {
                     const p = document.createElement("p");
-                    // Cambia 'item.nombre' por la columna que quieras mostrar
                     p.textContent = `Nombre: ${item.nombre} - Telefono: ${item.telefono} - Correo: ${item.correo}`;
                     container.appendChild(p);
                   });
                 }
-                // ------------------------------------------------
               })
               .catch((error) =>
                 console.error("Error al traer los datos:", error)
