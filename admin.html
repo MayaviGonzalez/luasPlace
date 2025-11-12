@@ -1,149 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panel de Administración - El Grano Dorado</title>
-    <link rel="stylesheet" href="stylesheet.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="stylesheet.css" />
+  </head>
+  <body>
     <nav>
-        <a href="index.html">Inicio</a>
-        <a href="admin.html">Admin</a>
+      <a href="index.html">Inicio</a>
+      <a href="admin.html">Admin</a>
     </nav>
 
     <main>
-        <div class="container">
-            <h2>Gestión de Usuarios</h2>
-            <p>Crea nuevos usuarios (clientes, empleados, gerentes, administradores, proveedores etc)</p>
+      <div class="container">
+        <h2>Gestión de Usuarios</h2>
+        <p>
+          Crea nuevos usuarios (clientes, empleados, gerentes, administradores,
+          proveedores etc)
+        </p>
 
-            <form>
-                <h3>Crear Nuevo Usuario</h3>
-                
-                <div class="form-group">
-                    <label for="username">Nombre de Usuario (Email):</label>
-                    <input type="email" id="username" name="username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Contraseña Temporal:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+        <form>
+          <h3>Crear Nuevo Usuario</h3>
 
-                <div class="form-group">
-                    <label for="permisos">Asignar Permisos (Rol):</label>
-                    <select id="permisos" name="role">
-                        <option value="barista">aqui</option>
-                        <option value="gerente">van</option>
-                        <option value="admin">los roles</option>
-                    </select>
-                </div>
+          <div class="form-group">
+            <label for="username">Nombre de Usuario (Email):</label>
+            <input type="email" id="username" name="username" required />
+          </div>
 
-                <button type="submit" class="btn">Crear Usuario</button>
-            </form>
+          <div class="form-group">
+            <label for="password">Contraseña Temporal:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
 
-            <h2>Guardar Nuevo Cliente</h2>
-<form id="mi-formulario">
-  <div>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
-  </div>
-  <div>
-    <label for="telefono">Teléfono:</label>
-    <input type="tel" id="telefono" name="telefono"> </div>
-  <div>
-    <label for="correo">Correo:</label>
-    <input type="email" id="correo" name="correo" required> </div>
-  <button type="submit">Guardar en la BD</button>
-</form>
+          <div class="form-group">
+            <label for="permisos">Asignar Permisos (Rol):</label>
+            <select id="permisos" name="role">
+              <option value="barista">aqui</option>
+              <option value="gerente">van</option>
+              <option value="admin">los roles</option>
+            </select>
+          </div>
 
-<script>
-    // --- CÓDIGO NUEVO PARA GUARDAR (CORREGIDO) ---
-    
-const formulario = document.getElementById('mi-formulario');
+          <button type="submit" class="btn">Crear Usuario</button>
+        </form>
 
-formulario.addEventListener('submit', async (event) => {
-  event.preventDefault(); 
-  
-  // 3. Obtenemos los TRES valores
-  const nombre = document.getElementById('nombre').value;
-  const telefono = document.getElementById('telefono').value; // Valor nuevo
-  const correo = document.getElementById('correo').value;     // ID cambiado a "correo"
+        <h2>Guardar Nuevo Cliente</h2>
+        <form id="mi-formulario">
+          <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required />
+          </div>
+          <div>
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" />
+          </div>
+          <div>
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required />
+          </div>
+          <button type="submit">Guardar en la BD</button>
+        </form>
 
-  // 4. Creamos el objeto de datos
-  const datosParaGuardar = {
-    nombre: nombre,
-    telefono: telefono,
-    correo: correo
-  };
-  
-  console.log('Enviando:', datosParaGuardar);
+        <script>
+          // --- CÓDIGO NUEVO PARA GUARDAR (CORREGIDO) ---
 
-  // 5. Usamos FETCH para enviar los datos al backend
-  try {
-    const response = await fetch('http://localhost:3000/api/guardar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(datosParaGuardar)
-    });
+          const formulario = document.getElementById("mi-formulario");
 
-    const resultado = await response.json();
+          formulario.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-    if (response.ok) {
-      console.log('Respuesta del servidor:', resultado);
-      alert('¡Datos guardados!');
-      formulario.reset();
-    } else {
-      alert('Error al guardar: ' + resultado.message);
-    }
-    
-  } catch (error) {
-    console.error('Error de red al enviar datos:', error);
-  }
-});
+            // 3. Obtenemos los TRES valores
+            const nombre = document.getElementById("nombre").value;
+            const telefono = document.getElementById("telefono").value; // Valor nuevo
+            const correo = document.getElementById("correo").value; // ID cambiado a "correo"
 
-  </script>
+            // 4. Creamos el objeto de datos
+            const datosParaGuardar = {
+              nombre: nombre,
+              telefono: telefono,
+              correo: correo,
+            };
 
-            <hr>
-            <script>
-    // Se ejecuta cuando la página termina de cargar
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      // Hacemos la "llamada" (fetch) a tu backend
-      fetch('http://localhost:3000/api/datos')
-        .then(response => response.json()) // Convertimos la respuesta a JSON
-        .then(datos => {
-          
-          // ¡Aquí tienes tus datos!
-          console.log(datos); 
-          
-          // ---- Ejemplo: Mostrar los datos en la página ----
-          const container = document.getElementById('datos-container');
-          if (container) {
-            // Suponiendo que 'datos' es un array de objetos
-            // y cada objeto tiene una propiedad 'nombre'
-            datos.forEach(item => {
-              const p = document.createElement('p');
-              // Cambia 'item.nombre' por la columna que quieras mostrar
-              p.textContent = `Nombre: ${item.nombre} - Telefono: ${item.telefono} - Correo: ${item.correo}`; 
-              container.appendChild(p);
-            });
-          }
-          // ------------------------------------------------
-          
-        })
-        .catch(error => console.error('Error al traer los datos:', error));
-    });
-  </script>
+            console.log("Enviando:", datosParaGuardar);
 
-  <div id="datos-container">
-    <h2>Datos desde la Base de Datos:</h2>
-  </div>
+            // 5. Usamos FETCH para enviar los datos al backend
+            try {
+              const response = await fetch(
+                "http://localhost:3000/api/guardar",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(datosParaGuardar),
+                }
+              );
+
+              const resultado = await response.json();
+
+              if (response.ok) {
+                console.log("Respuesta del servidor:", resultado);
+                alert("¡Datos guardados!");
+                formulario.reset();
+              } else {
+                alert("Error al guardar: " + resultado.message);
+              }
+            } catch (error) {
+              console.error("Error de red al enviar datos:", error);
+            }
+          });
+        </script>
+
+        <hr />
+        <script>
+          // Se ejecuta cuando la página termina de cargar
+          document.addEventListener("DOMContentLoaded", () => {
+            // Hacemos la "llamada" (fetch) a tu backend
+            fetch("http://localhost:3000/api/datos")
+              .then((response) => response.json()) // Convertimos la respuesta a JSON
+              .then((datos) => {
+                // ¡Aquí tienes tus datos!
+                console.log(datos);
+
+                // ---- Ejemplo: Mostrar los datos en la página ----
+                const container = document.getElementById("datos-container");
+                if (container) {
+                  // Suponiendo que 'datos' es un array de objetos
+                  // y cada objeto tiene una propiedad 'nombre'
+                  datos.forEach((item) => {
+                    const p = document.createElement("p");
+                    // Cambia 'item.nombre' por la columna que quieras mostrar
+                    p.textContent = `Nombre: ${item.nombre} - Telefono: ${item.telefono} - Correo: ${item.correo}`;
+                    container.appendChild(p);
+                  });
+                }
+                // ------------------------------------------------
+              })
+              .catch((error) =>
+                console.error("Error al traer los datos:", error)
+              );
+          });
+        </script>
+
+        <div id="datos-container">
+          <h2>Datos desde la Base de Datos:</h2>
         </div>
+      </div>
     </main>
-
-</body>
+  </body>
 </html>
