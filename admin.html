@@ -43,9 +43,105 @@
                 <button type="submit" class="btn">Crear Usuario</button>
             </form>
 
+            <h2>Guardar Nuevo Cliente</h2>
+<form id="mi-formulario">
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+  </div>
+  <div>
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono"> </div>
+  <div>
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" name="correo" required> </div>
+  <button type="submit">Guardar en la BD</button>
+</form>
+
+<script>
+    // --- CÓDIGO NUEVO PARA GUARDAR (CORREGIDO) ---
+    
+const formulario = document.getElementById('mi-formulario');
+
+formulario.addEventListener('submit', async (event) => {
+  event.preventDefault(); 
+  
+  // 3. Obtenemos los TRES valores
+  const nombre = document.getElementById('nombre').value;
+  const telefono = document.getElementById('telefono').value; // Valor nuevo
+  const correo = document.getElementById('correo').value;     // ID cambiado a "correo"
+
+  // 4. Creamos el objeto de datos
+  const datosParaGuardar = {
+    nombre: nombre,
+    telefono: telefono,
+    correo: correo
+  };
+  
+  console.log('Enviando:', datosParaGuardar);
+
+  // 5. Usamos FETCH para enviar los datos al backend
+  try {
+    const response = await fetch('http://localhost:3000/api/guardar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datosParaGuardar)
+    });
+
+    const resultado = await response.json();
+
+    if (response.ok) {
+      console.log('Respuesta del servidor:', resultado);
+      alert('¡Datos guardados!');
+      formulario.reset();
+    } else {
+      alert('Error al guardar: ' + resultado.message);
+    }
+    
+  } catch (error) {
+    console.error('Error de red al enviar datos:', error);
+  }
+});
+
+  </script>
+
             <hr>
-            <p>Aqui se van a mostra los usuarios ya creados o actuales mayaton.</p>
-            <p>Y ahora que abuelo?</p>
+            <script>
+    // Se ejecuta cuando la página termina de cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Hacemos la "llamada" (fetch) a tu backend
+      fetch('http://localhost:3000/api/datos')
+        .then(response => response.json()) // Convertimos la respuesta a JSON
+        .then(datos => {
+          
+          // ¡Aquí tienes tus datos!
+          console.log(datos); 
+          
+          // ---- Ejemplo: Mostrar los datos en la página ----
+          const container = document.getElementById('datos-container');
+          if (container) {
+            // Suponiendo que 'datos' es un array de objetos
+            // y cada objeto tiene una propiedad 'nombre'
+            datos.forEach(item => {
+              const p = document.createElement('p');
+              // Cambia 'item.nombre' por la columna que quieras mostrar
+              p.textContent = `Nombre: ${item.nombre} - Telefono: ${item.telefono} - Correo: ${item.correo}`; 
+              container.appendChild(p);
+            });
+          }
+          // ------------------------------------------------
+          
+        })
+        .catch(error => console.error('Error al traer los datos:', error));
+    });
+  </script>
+
+  <div id="datos-container">
+    <h2>Datos desde la Base de Datos:</h2>
+  </div>
         </div>
     </main>
 
